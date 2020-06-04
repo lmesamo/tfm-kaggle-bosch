@@ -37,7 +37,7 @@
 #    
 # Para ello vamos a necesitar las siguientes librerías:
 
-# In[ ]:
+# In[1]:
 
 
 import time
@@ -80,7 +80,7 @@ from sklearn.ensemble import StackingClassifier
 # <a href="https://www.kaggle.com/c/bosch-production-line-performance/discussion/22908" title="Kaggle Discusion 22908">[Kaggle Discusion 22908]</a>
 # </div>
 
-# In[ ]:
+# In[2]:
 
 
 gc.collect()
@@ -121,28 +121,28 @@ def muestra_resumen(filename):
    
 
 
-# In[ ]:
+# In[3]:
 
 
 filename="train_numeric.csv"
 muestra_resumen(filename)
 
 
-# In[ ]:
+# In[4]:
 
 
 filename="train_categorical.csv"
 muestra_resumen(filename)
 
 
-# In[ ]:
+# In[5]:
 
 
 filename="train_date.csv"
 muestra_resumen(filename)
 
 
-# In[ ]:
+# In[6]:
 
 
 # Para simplificar el trabajo y por la limitación de recursos se utilizan únicamente con los datos de tipo numérico
@@ -159,32 +159,32 @@ float32_cols = {c: np.float32 for c in float_cols}
 df_num = pd.read_csv('train_numeric.csv', engine='c', dtype={c: np.float32 for c in float_cols})
 
 
-# In[ ]:
+# In[7]:
 
 
 # Se muestra información del conjunto de datos cargados
 df_num.head()
 
 
-# In[ ]:
+# In[8]:
 
 
 df_num.info()
 
 
-# In[ ]:
+# In[9]:
 
 
 df_num.shape
 
 
-# In[ ]:
+# In[10]:
 
 
 df_num.dtypes
 
 
-# In[ ]:
+# In[11]:
 
 
 summary = df_num.describe()
@@ -192,7 +192,7 @@ summary = summary.transpose()
 summary
 
 
-# In[ ]:
+# In[12]:
 
 
 # Dada la cantidad de recursos que consume la carga del conjunto de datos de entrenamiento de tipo categórico
@@ -201,19 +201,19 @@ summary
 df_categ = pd.read_csv('train_categorical.csv', nrows=10000 ,low_memory=False)
 
 
-# In[ ]:
+# In[13]:
 
 
 df_categ.head()
 
 
-# In[ ]:
+# In[14]:
 
 
 df_categ.info()
 
 
-# In[ ]:
+# In[15]:
 
 
 summary = df_categ.describe()
@@ -221,7 +221,7 @@ summary = summary.transpose()
 summary
 
 
-# In[ ]:
+# In[16]:
 
 
 # Dada la cantidad de recursos que consume la carga de del conjunto de datos de entrenamiento de tipo categórico
@@ -230,19 +230,19 @@ summary
 df_date = pd.read_csv('train_date.csv', nrows=10000 ,low_memory=False)
 
 
-# In[ ]:
+# In[17]:
 
 
 df_date.head()
 
 
-# In[ ]:
+# In[18]:
 
 
 df_date.info()
 
 
-# In[ ]:
+# In[19]:
 
 
 summary = df_date.describe()
@@ -252,21 +252,21 @@ summary
 
 # # 2. Análisis de los datos
 
-# In[ ]:
+# In[20]:
 
 
 # Se muestra un análisis estadístico para los atributos numéricos
 df_num.describe()
 
 
-# In[ ]:
+# In[21]:
 
 
 # Se calcula el porcentaje de resultados de piezas correctas e incorrectas en los datos:
 df_num["Response"].value_counts(normalize=True)
 
 
-# In[ ]:
+# In[22]:
 
 
 # Se muestra en formato gráfico la distribución de los resultados para evidenciar el desbalanceo en los datos
@@ -288,7 +288,7 @@ for i in ax.patches:
 
 # ## 3.1 Valores nulos
 
-# In[ ]:
+# In[23]:
 
 
 # Se sustituyen los valores nulos por la media en los datos
@@ -297,7 +297,7 @@ df_num.fillna(df_num.mean(), inplace=True)
 
 # ## 3.2 Reducción de dimensionalidad
 
-# In[ ]:
+# In[24]:
 
 
 # Se separan los datos entre las variables independientes y la variable dependiente
@@ -310,7 +310,7 @@ y = df_num['Response']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=2020)
 
 
-# In[ ]:
+# In[25]:
 
 
 # A continuación, se normalizan ambos conjuntos de datos para que estén representados en la misma escala 
@@ -320,25 +320,25 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 
-# In[ ]:
+# In[26]:
 
 
 X_train.shape
 
 
-# In[ ]:
+# In[27]:
 
 
 X_test.shape
 
 
-# In[ ]:
+# In[28]:
 
 
 y_train.shape
 
 
-# In[ ]:
+# In[29]:
 
 
 y_test.shape
@@ -346,7 +346,7 @@ y_test.shape
 
 # ### 3.2.1. PCA
 
-# In[ ]:
+# In[30]:
 
 
 # Se aplica la reducción de dimensionalidad tanto a los datos de entrenamiento como a los de test
@@ -354,34 +354,34 @@ y_test.shape
 pca = PCA(0.98)
 
 
-# In[ ]:
+# In[31]:
 
 
 # Se aplica el mapeo al conjunto de datos de entrenamiento
 X_train_pca = pca.fit_transform(X_train)
 
 
-# In[ ]:
+# In[32]:
 
 
 # Se muestra el número de componentes calculado para al 98% de explicación de la varianza
 print ( "Componentes para un 98% de explicación de varianza:   ", pca.n_components_ )
 
 
-# In[ ]:
+# In[33]:
 
 
 # Se aplica el mapeo al conjunto de datos de test
 X_test_pca = pca.transform(X_test)
 
 
-# In[ ]:
+# In[34]:
 
 
 X_train_pca.shape
 
 
-# In[ ]:
+# In[35]:
 
 
 X_test_pca.shape
@@ -389,7 +389,7 @@ X_test_pca.shape
 
 # ### 3.2.2. Feature Importance
 
-# In[ ]:
+# In[36]:
 
 
 # Se utiliza el modelo XGBoost para obtener las características importantes
@@ -397,7 +397,7 @@ xgb_model = XGBClassifier()
 xgb_model.fit(X_train, y_train)
 
 
-# In[ ]:
+# In[37]:
 
 
 # Se muestra gráficamente el top 20 de características más importantes
@@ -405,7 +405,7 @@ plot_importance(xgb_model,max_num_features = 20)
 plt.show()
 
 
-# In[ ]:
+# In[38]:
 
 
 # Se toman las 500 características más importantes para el conjunto de datos
@@ -414,13 +414,13 @@ X_train_xgb = selection.transform(X_train)
 X_test_xgb = selection.transform(X_test)
 
 
-# In[ ]:
+# In[39]:
 
 
 X_train_xgb.shape
 
 
-# In[ ]:
+# In[40]:
 
 
 X_test_xgb.shape
@@ -432,21 +432,21 @@ X_test_xgb.shape
 # Se aplican las técnicas de muestreo sobre los datos obtenidos con la aplicación del PCA
 # </div>
 
-# In[ ]:
+# In[41]:
 
 
 rus_pca = RandomUnderSampler(random_state=2020)
 X_train_rus_pca, y_train_rus_pca = rus_pca.fit_resample(X_train_pca, y_train)
 
 
-# In[ ]:
+# In[42]:
 
 
 sm_pca = SMOTE(sampling_strategy='minority',random_state=2020)
 X_train_sm_pca, y_train_sm_pca = sm_pca.fit_resample(X_train_pca, y_train)
 
 
-# In[ ]:
+# In[43]:
 
 
 y_vals, counts = np.unique(y_test, return_counts=True)
@@ -460,7 +460,7 @@ print('Clases en conjunto de entrenamiento:',dict(zip(y_vals, counts)),'\n',
      )
 
 
-# In[ ]:
+# In[44]:
 
 
 # Formato gráfico para evidenciar la corrección del desbalanceo en los datos de PCA y uno de los métodos
@@ -478,13 +478,13 @@ for i in ax.patches:
     ax.text(i.get_x()+.05, i.get_height()+.5,             str(round((i.get_height()/total)*100, 2))+'%', fontsize=10)
 
 
-# In[ ]:
+# In[45]:
 
 
 X_train_rus_pca.shape
 
 
-# In[ ]:
+# In[46]:
 
 
 X_train_sm_pca.shape
@@ -494,21 +494,21 @@ X_train_sm_pca.shape
 # Se aplican las técnicas de muestreo sobre los datos obtenidos con la aplicación del XGBoost
 # </div>
 
-# In[ ]:
+# In[47]:
 
 
 rus_xgb = RandomUnderSampler(random_state=2020)
 X_train_rus_xgb, y_train_rus_xgb = rus_xgb.fit_resample(X_train_xgb, y_train)
 
 
-# In[ ]:
+# In[48]:
 
 
 sm_xgb = SMOTE(sampling_strategy='minority',random_state=2020)
 X_train_sm_xgb, y_train_sm_xgb = sm_xgb.fit_resample(X_train_xgb, y_train)
 
 
-# In[ ]:
+# In[49]:
 
 
 y_vals_rus_xgb, counts_rus_xgb = np.unique(y_train_rus_xgb, return_counts=True)
@@ -520,7 +520,7 @@ print('Clases en conjunto de entrenamiento:',dict(zip(y_vals, counts)),'\n',
      )
 
 
-# In[ ]:
+# In[50]:
 
 
 # Formato gráfico para evidenciar la corrección del desbalanceo en los datos de XGBoost y uno de los métodos
@@ -538,13 +538,13 @@ for i in ax.patches:
     ax.text(i.get_x()+.05, i.get_height()+.5,             str(round((i.get_height()/total)*100, 2))+'%', fontsize=10)
 
 
-# In[ ]:
+# In[51]:
 
 
 X_train_rus_xgb.shape
 
 
-# In[ ]:
+# In[52]:
 
 
 X_train_sm_xgb.shape
@@ -562,7 +562,7 @@ X_train_sm_xgb.shape
 # Este análisis se realiza con 10 submuestreos aleatorios diferentes para evitar sesgo en las muestras.
 # </div>
 
-# In[ ]:
+# In[53]:
 
 
 #TO-DO. Revisar y mejorar disposición del código
@@ -612,7 +612,7 @@ print("--- %s segundos ---" % (time.time() - start_time))
 # Se amplia el experimiento a analizar los resultados para los ratios 1:20, 1:30 y 1:50
 # </div>
 
-# In[ ]:
+# In[54]:
 
 
 #TO-DO. Revisar y mejorar disposición del código
@@ -662,7 +662,7 @@ print("--- %s segundos ---" % (time.time() - start_time))
 # Al observar que el resultado sigue mejorando, se amplia el experimiento a analizar los resultados para los ratios 1:100, 1:150 y 1:170
 # </div>
 
-# In[ ]:
+# In[55]:
 
 
 #TO-DO. Revisar y mejorar disposición del código
@@ -712,7 +712,7 @@ print("--- %s segundos ---" % (time.time() - start_time))
 # Para los modelos, se tomara la técnica de muestreo con ratio 1:15 y ratio 1:50 de números positivos sobre los datos obtenidos con la aplicación del PCA y XGBoost
 # </div>
 
-# In[ ]:
+# In[56]:
 
 
 ratio = 1/15
@@ -724,7 +724,7 @@ rus_sm_pca_15 = SMOTE(sampling_strategy='minority',random_state=2020)
 X_train_rus_sm_pca_15, y_train_rus_sm_pca_15 = rus_sm_pca_15.fit_resample(X_train_rus_pca_15, y_train_rus_pca_15)
 
 
-# In[ ]:
+# In[57]:
 
 
 rus_xgb_15 = RandomUnderSampler(sampling_strategy=ratio, random_state=2020)
@@ -734,7 +734,7 @@ rus_sm_xgb_15 = SMOTE(sampling_strategy='minority',random_state=2020)
 X_train_rus_sm_xgb_15, y_train_rus_sm_xgb_15 = rus_sm_xgb_15.fit_resample(X_train_rus_xgb_15, y_train_rus_xgb_15)
 
 
-# In[ ]:
+# In[58]:
 
 
 ratio = 1/50
@@ -746,7 +746,7 @@ rus_sm_pca_50 = SMOTE(sampling_strategy='minority',random_state=2020)
 X_train_rus_sm_pca_50, y_train_rus_sm_pca_50 = rus_sm_pca_50.fit_resample(X_train_rus_pca_50, y_train_rus_pca_50)
 
 
-# In[ ]:
+# In[59]:
 
 
 rus_xgb_50 = RandomUnderSampler(sampling_strategy=ratio, random_state=2020)
@@ -756,7 +756,7 @@ rus_sm_xgb_50 = SMOTE(sampling_strategy='minority',random_state=2020)
 X_train_rus_sm_xgb_50, y_train_rus_sm_xgb_50 = rus_sm_xgb_50.fit_resample(X_train_rus_xgb_50, y_train_rus_xgb_50)
 
 
-# In[ ]:
+# In[60]:
 
 
 #Actualizamos los datos incluyendo el nuevo método de muestreo
@@ -781,25 +781,25 @@ print('Clases en conjunto de entrenamiento:',dict(zip(y_vals, counts)),'\n',
      )
 
 
-# In[ ]:
+# In[61]:
 
 
 X_train_rus_sm_pca_15.shape
 
 
-# In[ ]:
+# In[62]:
 
 
 X_train_rus_sm_xgb_15.shape
 
 
-# In[ ]:
+# In[63]:
 
 
 X_train_rus_sm_pca_50.shape
 
 
-# In[ ]:
+# In[65]:
 
 
 X_train_rus_sm_xgb_50.shape
@@ -819,7 +819,7 @@ X_train_rus_sm_xgb_50.shape
 # Posteriormente se selecciona la combinación de hiperparámetros que mejor resultados haya dado.
 # </div>
 
-# In[ ]:
+# In[66]:
 
 
 param_grid = {
@@ -831,20 +831,20 @@ param_grid = {
 rf_clf_gs = GridSearchCV(ensemble.RandomForestClassifier(), param_grid=param_grid, cv=3, pre_dispatch=6, n_jobs=3,scoring='f1',verbose=0)
 
 
-# In[ ]:
+# In[67]:
 
 
 # Se toma como conjunto de entrenamiento para determinar los mejores parámetros los resultantes de PCA + combinar los muestreos 
 rf_clf_gs_rus_sm_pca_15 = rf_clf_gs.fit(X_train_rus_sm_pca_15, y_train_rus_sm_pca_15)
 
 
-# In[ ]:
+# In[68]:
 
 
 rf_clf_gs_rus_sm_pca_15.best_params_
 
 
-# In[ ]:
+# In[69]:
 
 
 means = rf_clf_gs_rus_sm_pca_15.cv_results_["mean_test_score"]
@@ -856,20 +856,20 @@ for rank, mean, std, pms in zip(ranks, means, stds, params):
     print("{}) Precisión media: {:.2f} +/- {:.2f} con parámetros {}".format(rank, mean*100, std*100, pms))
 
 
-# In[ ]:
+# In[70]:
 
 
 # Se toma como conjunto de entrenamiento para determinar los mejores parámetros los resultantes de XGB + combinar los muestreos 
 rf_clf_gs_rus_sm_xgb_15 = rf_clf_gs.fit(X_train_rus_sm_xgb_15, y_train_rus_sm_xgb_15)
 
 
-# In[ ]:
+# In[71]:
 
 
 rf_clf_gs_rus_sm_xgb_15.best_params_
 
 
-# In[ ]:
+# In[72]:
 
 
 means = rf_clf_gs_rus_sm_xgb_15.cv_results_["mean_test_score"]
@@ -887,7 +887,7 @@ for rank, mean, std, pms in zip(ranks, means, stds, params):
 # A partir de los conjuntos de datos obtenidos de la reducción dimensional y el muestreo, se entrena un modelo <i>Random Forest</i> con los mejores parámetros obtenidos del <i>grid search</i>.
 # </div>
 
-# In[ ]:
+# In[73]:
 
 
 rf_clf = ensemble.RandomForestClassifier(n_estimators=rf_clf_gs_rus_sm_pca_15.best_params_["n_estimators"], max_depth=rf_clf_gs_rus_sm_pca_15.best_params_["max_depth"], random_state=rf_clf_gs_rus_sm_pca_15.best_params_["random_state"], n_jobs=3, verbose=0)
@@ -897,19 +897,19 @@ rf_clf = ensemble.RandomForestClassifier(n_estimators=rf_clf_gs_rus_sm_pca_15.be
 #     Ramdom Forest con el conjunto de datos PCA y RandomUnderSampler
 # </div>
 
-# In[ ]:
+# In[74]:
 
 
 rf_cfl_rus_pca = rf_clf.fit(X_train_rus_pca, y_train_rus_pca)
 
 
-# In[ ]:
+# In[75]:
 
 
 y_pred_rf_rus_pca = rf_cfl_rus_pca.predict(X_test_pca)
 
 
-# In[ ]:
+# In[76]:
 
 
 # Se muestran los resultados a través de la precisión de las predicciones y la matriz de confusión de cada modelo
@@ -946,7 +946,7 @@ def plot_confusion_matrix_custom(cm, normalize):
     
 
 
-# In[ ]:
+# In[77]:
 
 
 cm_rf_rus_pca = confusion_matrix(y_test, y_pred_rf_rus_pca)  
@@ -954,7 +954,7 @@ cm_rf_rus_pca = confusion_matrix(y_test, y_pred_rf_rus_pca)
 plot_confusion_matrix_custom(cm_rf_rus_pca, False)
 
 
-# In[ ]:
+# In[78]:
 
 
 plot_confusion_matrix_custom(cm_rf_rus_pca, True)
@@ -970,19 +970,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_rus_pca)*100)
 #     Ramdom Forest con el conjunto de datos PCA y SMOTE
 # </div>
 
-# In[ ]:
+# In[79]:
 
 
 rf_cfl_sm_pca = rf_clf.fit(X_train_sm_pca, y_train_sm_pca)
 
 
-# In[ ]:
+# In[80]:
 
 
 y_pred_rf_sm_pca = rf_cfl_sm_pca.predict(X_test_pca)
 
 
-# In[ ]:
+# In[81]:
 
 
 cm_rf_sm_pca = confusion_matrix(y_test, y_pred_rf_sm_pca)  
@@ -990,7 +990,7 @@ cm_rf_sm_pca = confusion_matrix(y_test, y_pred_rf_sm_pca)
 plot_confusion_matrix_custom(cm_rf_sm_pca,False)
 
 
-# In[ ]:
+# In[82]:
 
 
 plot_confusion_matrix_custom(cm_rf_sm_pca,True)
@@ -1006,19 +1006,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_sm_pca)*100)
 #     Ramdom Forest con el conjunto de datos PCA y RandomUnderSampler + SMOTE (1:15)
 # </div>
 
-# In[ ]:
+# In[83]:
 
 
 rf_cfl_rus_sm_pca_15 = rf_clf.fit(X_train_rus_sm_pca_15, y_train_rus_sm_pca_15)
 
 
-# In[ ]:
+# In[84]:
 
 
 y_pred_rf_rus_sm_pca_15 = rf_cfl_rus_sm_pca_15.predict(X_test_pca)
 
 
-# In[ ]:
+# In[85]:
 
 
 cm_rf_rus_sm_pca_15 = confusion_matrix(y_test, y_pred_rf_rus_sm_pca_15)  
@@ -1026,7 +1026,7 @@ cm_rf_rus_sm_pca_15 = confusion_matrix(y_test, y_pred_rf_rus_sm_pca_15)
 plot_confusion_matrix_custom(cm_rf_rus_sm_pca_15, False)
 
 
-# In[ ]:
+# In[86]:
 
 
 plot_confusion_matrix_custom(cm_rf_rus_sm_pca_15, True)
@@ -1042,19 +1042,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_rus_sm_pca_15)*100)
 #     Ramdom Forest con el conjunto de datos PCA y RandomUnderSampler + SMOTE (1:50)
 # </div>
 
-# In[ ]:
+# In[87]:
 
 
 rf_cfl_rus_sm_pca_50 = rf_clf.fit(X_train_rus_sm_pca_50, y_train_rus_sm_pca_50)
 
 
-# In[ ]:
+# In[88]:
 
 
 y_pred_rf_rus_sm_pca_50 = rf_cfl_rus_sm_pca_50.predict(X_test_pca)
 
 
-# In[ ]:
+# In[89]:
 
 
 cm_rf_rus_sm_pca_50 = confusion_matrix(y_test, y_pred_rf_rus_sm_pca_50)  
@@ -1062,7 +1062,7 @@ cm_rf_rus_sm_pca_50 = confusion_matrix(y_test, y_pred_rf_rus_sm_pca_50)
 plot_confusion_matrix_custom(cm_rf_rus_sm_pca_50, False)
 
 
-# In[ ]:
+# In[90]:
 
 
 plot_confusion_matrix_custom(cm_rf_rus_sm_pca_50, True)
@@ -1078,19 +1078,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_rus_sm_pca_50)*100)
 #     Ramdom Forest con el conjunto de datos XGBoost y RandomUnderSampler
 # </div>
 
-# In[ ]:
+# In[91]:
 
 
 rf_cfl_rus_xgb = rf_clf.fit(X_train_rus_xgb, y_train_rus_xgb)
 
 
-# In[ ]:
+# In[92]:
 
 
 y_pred_rf_rus_xgb = rf_cfl_rus_xgb.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[93]:
 
 
 cm_rf_rus_xgb = confusion_matrix(y_test, y_pred_rf_rus_xgb)  
@@ -1098,7 +1098,7 @@ cm_rf_rus_xgb = confusion_matrix(y_test, y_pred_rf_rus_xgb)
 plot_confusion_matrix_custom(cm_rf_rus_xgb, False)
 
 
-# In[ ]:
+# In[94]:
 
 
 plot_confusion_matrix_custom(cm_rf_rus_xgb, True)
@@ -1114,19 +1114,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_rus_xgb)*100)
 #     Ramdom Forest con el conjunto de datos XGBoost y SMOTE
 # </div>
 
-# In[ ]:
+# In[95]:
 
 
 rf_cfl_sm_xgb = rf_clf.fit(X_train_sm_xgb, y_train_sm_xgb)
 
 
-# In[ ]:
+# In[96]:
 
 
 y_pred_rf_sm_xgb = rf_cfl_sm_xgb.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[97]:
 
 
 cm_rf_sm_xgb = confusion_matrix(y_test, y_pred_rf_sm_xgb)  
@@ -1134,7 +1134,7 @@ cm_rf_sm_xgb = confusion_matrix(y_test, y_pred_rf_sm_xgb)
 plot_confusion_matrix_custom(cm_rf_sm_xgb, False)
 
 
-# In[ ]:
+# In[98]:
 
 
 plot_confusion_matrix_custom(cm_rf_sm_xgb, True)
@@ -1150,19 +1150,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_sm_xgb)*100)
 #     Ramdom Forest con el conjunto de datos XGBoost y RandomUnderSampler + SMOTE (1:15)
 # </div>
 
-# In[ ]:
+# In[99]:
 
 
 rf_cfl_rus_sm_xgb_15 = rf_clf.fit(X_train_rus_sm_xgb_15, y_train_rus_sm_xgb_15)
 
 
-# In[ ]:
+# In[100]:
 
 
 y_pred_rf_rus_sm_xgb_15 = rf_cfl_rus_sm_xgb_15.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[101]:
 
 
 cm_rf_rus_sm_xgb_15 = confusion_matrix(y_test, y_pred_rf_rus_sm_xgb_15)  
@@ -1170,7 +1170,7 @@ cm_rf_rus_sm_xgb_15 = confusion_matrix(y_test, y_pred_rf_rus_sm_xgb_15)
 plot_confusion_matrix_custom(cm_rf_rus_sm_xgb_15, False)
 
 
-# In[ ]:
+# In[102]:
 
 
 plot_confusion_matrix_custom(cm_rf_rus_sm_xgb_15, True)
@@ -1186,19 +1186,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_rus_sm_xgb_15)*100)
 #     Ramdom Forest con el conjunto de datos XGBoost y RandomUnderSampler + SMOTE (1:50)
 # </div>
 
-# In[ ]:
+# In[103]:
 
 
 rf_cfl_rus_sm_xgb_50 = rf_clf.fit(X_train_rus_sm_xgb_50, y_train_rus_sm_xgb_50)
 
 
-# In[ ]:
+# In[104]:
 
 
 y_pred_rf_rus_sm_xgb_50 = rf_cfl_rus_sm_xgb_50.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[105]:
 
 
 cm_rf_rus_sm_xgb_50 = confusion_matrix(y_test, y_pred_rf_rus_sm_xgb_50)  
@@ -1206,7 +1206,7 @@ cm_rf_rus_sm_xgb_50 = confusion_matrix(y_test, y_pred_rf_rus_sm_xgb_50)
 plot_confusion_matrix_custom(cm_rf_rus_sm_xgb_50, False)
 
 
-# In[ ]:
+# In[106]:
 
 
 plot_confusion_matrix_custom(cm_rf_rus_sm_xgb_50, True)
@@ -1231,7 +1231,7 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_rf_rus_sm_xgb_50)*100)
 # Posteriormente se selecciona la combinación de hiperparámetros que mejor resultados haya dado.
 # </div>
 
-# In[ ]:
+# In[107]:
 
 
 param_grid = {
@@ -1244,20 +1244,20 @@ param_grid = {
 xgb_clf_gs = GridSearchCV(XGBClassifier(), param_grid=param_grid, scoring='f1', cv=3, pre_dispatch=6, n_jobs=3, verbose=0)
 
 
-# In[ ]:
+# In[108]:
 
 
 # Se toma como conjunto de entrenamiento para determinar los mejores parámetros los resultantes de PCA + combinar los muestreos 
 xgb_clf_gs_rus_sm_pca_15 = xgb_clf_gs.fit(X_train_rus_sm_pca_15, y_train_rus_sm_pca_15)
 
 
-# In[ ]:
+# In[109]:
 
 
 xgb_clf_gs_rus_sm_pca_15.best_params_
 
 
-# In[ ]:
+# In[110]:
 
 
 means = xgb_clf_gs_rus_sm_pca_15.cv_results_["mean_test_score"]
@@ -1269,20 +1269,20 @@ for rank, mean, std, pms in zip(ranks, means, stds, params):
     print("{}) Precisión media: {:.2f} +/- {:.2f} con parámetros {}".format(rank, mean*100, std*100, pms))
 
 
-# In[ ]:
+# In[111]:
 
 
 # Se toma como conjunto de entrenamiento para determinar los mejores parámetros los resultantes de XGB + combinar los muestreos 
 xgb_clf_gs_rus_sm_xgb_15 = xgb_clf_gs.fit(X_train_rus_sm_xgb_15, y_train_rus_sm_xgb_15)
 
 
-# In[ ]:
+# In[112]:
 
 
 xgb_clf_gs_rus_sm_xgb_15.best_params_
 
 
-# In[ ]:
+# In[113]:
 
 
 means = xgb_clf_gs_rus_sm_xgb_15.cv_results_["mean_test_score"]
@@ -1300,7 +1300,7 @@ for rank, mean, std, pms in zip(ranks, means, stds, params):
 # A partir de los conjuntos de datos obtenidos de la reducción dimensional y el muestreo, se entrena un modelo <i>XGBoost</i> con los mejores parámetros obtenidos del <i>grid search</i>.
 # </div>
 
-# In[ ]:
+# In[114]:
 
 
 xgb_clf = XGBClassifier(n_estimators=xgb_clf_gs_rus_sm_pca_15.best_params_["n_estimators"], max_depth=xgb_clf_gs_rus_sm_pca_15.best_params_["max_depth"], min_child_weight=xgb_clf_gs_rus_sm_pca_15.best_params_["min_child_weight"], random_state=xgb_clf_gs_rus_sm_pca_15.best_params_["random_state"], subsample=0.8, scoring='f1', cv=3, pre_dispatch=6, n_jobs=3, verbose=0)
@@ -1310,19 +1310,19 @@ xgb_clf = XGBClassifier(n_estimators=xgb_clf_gs_rus_sm_pca_15.best_params_["n_es
 #     XGBoost con el conjunto de datos PCA y RandomUnderSampler
 # </div>
 
-# In[ ]:
+# In[115]:
 
 
 xgb_cfl_rus_pca = xgb_clf.fit(X_train_rus_pca, y_train_rus_pca)
 
 
-# In[ ]:
+# In[116]:
 
 
 y_pred_xgb_rus_pca = xgb_cfl_rus_pca.predict(X_test_pca)
 
 
-# In[ ]:
+# In[117]:
 
 
 cm_xgb_rus_pca = confusion_matrix(y_test, y_pred_xgb_rus_pca)  
@@ -1330,7 +1330,7 @@ cm_xgb_rus_pca = confusion_matrix(y_test, y_pred_xgb_rus_pca)
 plot_confusion_matrix_custom(cm_xgb_rus_pca, False)
 
 
-# In[ ]:
+# In[118]:
 
 
 plot_confusion_matrix_custom(cm_xgb_rus_pca, True)
@@ -1346,19 +1346,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_rus_pca)*100)
 #     XGBoost con el conjunto de datos PCA y SMOTE
 # </div>
 
-# In[ ]:
+# In[119]:
 
 
 xgb_cfl_sm_pca = xgb_clf.fit(X_train_sm_pca, y_train_sm_pca)
 
 
-# In[ ]:
+# In[120]:
 
 
 y_pred_xgb_sm_pca = xgb_cfl_sm_pca.predict(X_test_pca)
 
 
-# In[ ]:
+# In[121]:
 
 
 cm_xgb_sm_pca = confusion_matrix(y_test, y_pred_xgb_sm_pca)  
@@ -1366,7 +1366,7 @@ cm_xgb_sm_pca = confusion_matrix(y_test, y_pred_xgb_sm_pca)
 plot_confusion_matrix_custom(cm_xgb_sm_pca, False)
 
 
-# In[ ]:
+# In[122]:
 
 
 plot_confusion_matrix_custom(cm_xgb_sm_pca, True)
@@ -1382,19 +1382,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_sm_pca)*100)
 #     XGBoost con el conjunto de datos PCA y RandomUnderSampler + SMOTE (1:15)
 # </div>
 
-# In[ ]:
+# In[123]:
 
 
 xgb_cfl_rus_sm_pca_15 = xgb_clf.fit(X_train_rus_sm_pca_15, y_train_rus_sm_pca_15)
 
 
-# In[ ]:
+# In[124]:
 
 
 y_pred_xgb_rus_sm_pca_15 = xgb_cfl_rus_sm_pca_15.predict(X_test_pca)
 
 
-# In[ ]:
+# In[125]:
 
 
 cm_xgb_rus_sm_pca_15 = confusion_matrix(y_test, y_pred_xgb_rus_sm_pca_15)  
@@ -1402,7 +1402,7 @@ cm_xgb_rus_sm_pca_15 = confusion_matrix(y_test, y_pred_xgb_rus_sm_pca_15)
 plot_confusion_matrix_custom(cm_xgb_rus_sm_pca_15, False)
 
 
-# In[ ]:
+# In[126]:
 
 
 plot_confusion_matrix_custom(cm_xgb_rus_sm_pca_15, True)
@@ -1418,19 +1418,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_rus_sm_pca_15)*100)
 #     XGBoost con el conjunto de datos PCA y RandomUnderSampler + SMOTE (1:50)
 # </div>
 
-# In[ ]:
+# In[127]:
 
 
 xgb_cfl_rus_sm_pca_50 = xgb_clf.fit(X_train_rus_sm_pca_50, y_train_rus_sm_pca_50)
 
 
-# In[ ]:
+# In[128]:
 
 
 y_pred_xgb_rus_sm_pca_50 = xgb_cfl_rus_sm_pca_50.predict(X_test_pca)
 
 
-# In[ ]:
+# In[129]:
 
 
 cm_xgb_rus_sm_pca_50 = confusion_matrix(y_test, y_pred_xgb_rus_sm_pca_50)  
@@ -1438,7 +1438,7 @@ cm_xgb_rus_sm_pca_50 = confusion_matrix(y_test, y_pred_xgb_rus_sm_pca_50)
 plot_confusion_matrix_custom(cm_xgb_rus_sm_pca_50, False)
 
 
-# In[ ]:
+# In[130]:
 
 
 plot_confusion_matrix_custom(cm_xgb_rus_sm_pca_50, True)
@@ -1454,19 +1454,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_rus_sm_pca_50)*100)
 #     XGBoost con el conjunto de datos XGBoost y RandomUnderSampler
 # </div>
 
-# In[ ]:
+# In[131]:
 
 
 xgb_cfl_rus_xgb = xgb_clf.fit(X_train_rus_xgb, y_train_rus_xgb)
 
 
-# In[ ]:
+# In[132]:
 
 
 y_pred_xgb_rus_xgb = xgb_cfl_rus_xgb.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[133]:
 
 
 cm_xgb_rus_xgb = confusion_matrix(y_test, y_pred_xgb_rus_xgb)  
@@ -1474,7 +1474,7 @@ cm_xgb_rus_xgb = confusion_matrix(y_test, y_pred_xgb_rus_xgb)
 plot_confusion_matrix_custom(cm_xgb_rus_xgb, False)
 
 
-# In[ ]:
+# In[134]:
 
 
 plot_confusion_matrix_custom(cm_xgb_rus_xgb, True)
@@ -1490,19 +1490,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_rus_xgb)*100)
 #     XGBoost con el conjunto de datos XGBoost y SMOTE
 # </div>
 
-# In[ ]:
+# In[135]:
 
 
 xgb_cfl_sm_xgb = xgb_clf.fit(X_train_sm_xgb, y_train_sm_xgb)
 
 
-# In[ ]:
+# In[136]:
 
 
 y_pred_xgb_sm_xgb = xgb_cfl_sm_xgb.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[137]:
 
 
 cm_xgb_sm_xgb = confusion_matrix(y_test, y_pred_xgb_sm_xgb)  
@@ -1510,7 +1510,7 @@ cm_xgb_sm_xgb = confusion_matrix(y_test, y_pred_xgb_sm_xgb)
 plot_confusion_matrix_custom(cm_xgb_sm_xgb, False)
 
 
-# In[ ]:
+# In[138]:
 
 
 plot_confusion_matrix_custom(cm_xgb_sm_xgb, True)
@@ -1526,19 +1526,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_sm_xgb)*100)
 #     XGBoost con el conjunto de datos XGBoost y y RandomUnderSampler + SMOTE (1:15)
 # </div>
 
-# In[ ]:
+# In[139]:
 
 
 xgb_cfl_rus_sm_xgb_15 = xgb_clf.fit(X_train_rus_sm_xgb_15, y_train_rus_sm_xgb_15)
 
 
-# In[ ]:
+# In[140]:
 
 
 y_pred_xgb_rus_sm_xgb_15 = xgb_cfl_rus_sm_xgb_15.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[141]:
 
 
 cm_xgb_rus_sm_xgb_15 = confusion_matrix(y_test, y_pred_xgb_rus_sm_xgb_15)  
@@ -1546,7 +1546,7 @@ cm_xgb_rus_sm_xgb_15 = confusion_matrix(y_test, y_pred_xgb_rus_sm_xgb_15)
 plot_confusion_matrix_custom(cm_xgb_rus_sm_xgb_15, False)
 
 
-# In[ ]:
+# In[142]:
 
 
 plot_confusion_matrix_custom(cm_xgb_rus_sm_xgb_15, True)
@@ -1562,19 +1562,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_rus_sm_xgb_15)*100)
 #     XGBoost con el conjunto de datos XGBoost y y RandomUnderSampler + SMOTE (1:50)
 # </div>
 
-# In[ ]:
+# In[143]:
 
 
 xgb_cfl_rus_sm_xgb_50 = xgb_clf.fit(X_train_rus_sm_xgb_50, y_train_rus_sm_xgb_50)
 
 
-# In[ ]:
+# In[144]:
 
 
 y_pred_xgb_rus_sm_xgb_50 = xgb_cfl_rus_sm_xgb_50.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[145]:
 
 
 cm_xgb_rus_sm_xgb_50 = confusion_matrix(y_test, y_pred_xgb_rus_sm_xgb_50)  
@@ -1582,7 +1582,7 @@ cm_xgb_rus_sm_xgb_50 = confusion_matrix(y_test, y_pred_xgb_rus_sm_xgb_50)
 plot_confusion_matrix_custom(cm_xgb_rus_sm_xgb_50, False)
 
 
-# In[ ]:
+# In[146]:
 
 
 plot_confusion_matrix_custom(cm_xgb_rus_sm_xgb_50, True)
@@ -1612,7 +1612,7 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_xgb_rus_sm_xgb_50)*100)
 # 
 # </div>
 
-# In[ ]:
+# In[147]:
 
 
 # Se combinan los clasificadores en un mismo meta-clasificador 
@@ -1629,19 +1629,19 @@ stack_clf = StackingClassifier(estimators=estimators, cv=3, n_jobs=3, verbose=0)
 # Ratio 1:15
 # </div>
 
-# In[ ]:
+# In[148]:
 
 
 stack_cfl_rus_sm_xgb_15 = stack_clf.fit(X_train_rus_sm_xgb_15, y_train_rus_sm_xgb_15)
 
 
-# In[ ]:
+# In[149]:
 
 
 y_pred_stack_rus_sm_xgb_15 = stack_cfl_rus_sm_xgb_15.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[150]:
 
 
 cm_stack_rus_sm_xgb_15 = confusion_matrix(y_test, y_pred_stack_rus_sm_xgb_15)  
@@ -1649,7 +1649,7 @@ cm_stack_rus_sm_xgb_15 = confusion_matrix(y_test, y_pred_stack_rus_sm_xgb_15)
 plot_confusion_matrix_custom(cm_stack_rus_sm_xgb_15, False)
 
 
-# In[ ]:
+# In[151]:
 
 
 plot_confusion_matrix_custom(cm_stack_rus_sm_xgb_15, True)
@@ -1665,19 +1665,19 @@ print('MCC:       ', matthews_corrcoef(y_test,y_pred_stack_rus_sm_xgb_15)*100)
 # Ratio 1:50
 # </div>
 
-# In[ ]:
+# In[152]:
 
 
 stack_cfl_rus_sm_xgb_50 = stack_clf.fit(X_train_rus_sm_xgb_50, y_train_rus_sm_xgb_50)
 
 
-# In[ ]:
+# In[153]:
 
 
 y_pred_stack_rus_sm_xgb_50 = stack_cfl_rus_sm_xgb_50.predict(X_test_xgb)
 
 
-# In[ ]:
+# In[154]:
 
 
 cm_stack_rus_sm_xgb_50 = confusion_matrix(y_test, y_pred_stack_rus_sm_xgb_50)  
@@ -1685,7 +1685,7 @@ cm_stack_rus_sm_xgb_50 = confusion_matrix(y_test, y_pred_stack_rus_sm_xgb_50)
 plot_confusion_matrix_custom(cm_stack_rus_sm_xgb_50, False)
 
 
-# In[ ]:
+# In[155]:
 
 
 plot_confusion_matrix_custom(cm_stack_rus_sm_xgb_50, True)
