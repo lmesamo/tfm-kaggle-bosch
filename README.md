@@ -1,5 +1,9 @@
-# tfm-kaggle-bosch
-UOC. Máster en Ciencia de Datos. TFM – Área 2 - Machine Learning - Predicción de errores en producción industrial de piezas.
+# UOC. Máster en Ciencia de Datos. 
+
+# TFM – Área 2 - Machine Learning. 
+
+# Predicción de errores en producción industrial de piezas.
+
 
 En el mundo globalizado en el que nos encontramos donde las empresas necesitan reducir costes y aumentar la calidad de sus productos para poder competir se hace necesario introducir sistemas expertos que ayuden a tomar decisiones de manera ágil y automática. La algoritmia de análisis predictivo es la base de estos sistemas y permite a las compañías mejorar su eficiencia y competitividad.
 Dentro de esta área, a partir de los datos capturados en cada una de las líneas de producción, estaciones de trabajo y características de una planta de producción se requiere definir un modelo que permita predecir si una pieza pasará el control de calidad. 
