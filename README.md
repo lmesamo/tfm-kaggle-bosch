@@ -18,4 +18,6 @@ Keep the large size of the dataset and the highly imbalanced in mind during mode
 The CRISP-DM methodology provides a structured approach to planning a data mining project, focuses on understanding the project objectives and meets a high-quality product result.
 According to this methodology, the process of data mining is broken into six major phases: business understanding, data understanding, data preparation, modelling, evaluation and deployment.
 
+
+
 [M2.879_TFM_AREA2_PEC3_MESA-MORALES-LORENZO.html](https://htmlpreview.github.io/?https://github.com/lmesamo/tfm-kaggle-bosch/blob/master/M2.879_TFM_AREA2_PEC3_MESA-MORALES-LORENZO.html)
