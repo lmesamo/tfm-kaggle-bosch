@@ -55,7 +55,7 @@ According to this methodology, the process of data mining is broken into six maj
 
 ### Output
 
-* [M2.879_TFM_AREA2_PEC3_MESA-MORALES-LORENZO.html](https://htmlpreview.github.io/?https://github.com/lmesamo/tfm-kaggle-bosch/blob/master/M2.879_TFM_AREA2_PEC3_MESA-MORALES-LORENZO.html)
+* [M2.879_TFM_AREA2_PEC3_MESA-MORALES-LORENZO.html](https://htmlpreview.github.io/?https://github.com/lmesamo/tfm-kaggle-bosch/blob/master/output/M2.879_TFM_AREA2_PEC3_MESA-MORALES-LORENZO.html)
 
 ## Authors
 
