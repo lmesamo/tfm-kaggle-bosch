@@ -16,7 +16,7 @@ Para del desarrollo del trabajo se elige la metodología CRISP-DM por ser la má
 
 Siguiendo la metodología se desarrollan las fases de comprensión del negocio, comprensión de los datos, preparación de los datos, modelado, evaluación del modelo y despliegue.
 
-
+-----
 
 At the present time, companies need to cut development costs and optimize production process in terms of quality in order to increase their global competitiveness by introducing and adapting expert systems for having very agile and automatic decision-making structures. These systems are based on predictive analytics that allow companies to improve competitiveness and efficiency.
 
